@@ -1,7 +1,7 @@
 # Adds New Relic support to 
 # Docker Hub: https://registry.hub.docker.com/r/johnrom/docker-wordpress-wp-cli-xdebug-newrelic
 # Github Repo: https://github.com/johnrom/docker-wordpress-wp-cli-xdebug-newrelic
-FROM johnrom/docker-wordpress-wp-cli-xdebug:5.5.1-php7.4-apache
+FROM johnrom/docker-wordpress-wp-cli-xdebug:6.1.1-php8.1-apache
 LABEL maintainer=docker@johnrom.com
 
 RUN apt-get update && apt-get install -y gnupg
@@ -14,6 +14,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
 
 # Add sudo in order to run wp-cli as the www-data user
 RUN NR_INSTALL_SILENT=1 newrelic-install install
+
+RUN docker-php-ext-enable newrelic
 
 # Cleanup
 RUN apt-get clean
